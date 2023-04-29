@@ -1,22 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:portfolio_project/src/ui/home/widgets/constants/text_view.dart';
+import 'package:url_launcher/link.dart';
 
 import '../../../../core/colors.dart';
+import '../../../../data/user_service.dart';
 import '../../../../model/user_details_model.dart';
 import 'card_widget.dart';
 import 'height_space_widget.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 
 class ProfileDetailsWidget extends StatelessWidget {
-  const ProfileDetailsWidget({
-    super.key,
-    required this.user,
-  });
+  const ProfileDetailsWidget({Key? key, required this.user}) : super(key: key);
 
   final User user;
 
   @override
   Widget build(BuildContext context) {
+
+    final Uri linkedinUrl = Uri.parse("${user.socialMedia?.linkedin}");
+    final Uri dribbleUrl = Uri.parse("${user.socialMedia?.dribble}");
+    final Uri twitterUrl = Uri.parse("${user.socialMedia?.twitter}");
+    final Uri instagramUrl = Uri.parse("${user.socialMedia?.instagram}");
+
+
+
     return Column(
       mainAxisAlignment: MainAxisAlignment
           .spaceBetween,
@@ -112,26 +121,67 @@ class ProfileDetailsWidget extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  IconWidget(color: AppColors.blue,icon:SvgPicture.asset(
-                    "assets/icons/linkedin.svg",width: 20,
-                  ),),
-                  IconWidget(color: AppColors.iconBg,icon:SvgPicture.asset(
-                    "assets/icons/dribbble.svg",width: 20,
-                  ),),
-                  IconWidget(color: AppColors.iconBg,icon:SvgPicture.asset(
-                    "assets/icons/twitter.svg",width: 20,
-                  ),),
-                  IconWidget(color: AppColors.iconBg,icon:SvgPicture.asset(
-                    "assets/icons/instagram.svg",width: 20,
-                  ),),
+                  Link(
+                    target: LinkTarget.blank,
+                    uri: linkedinUrl,
+                    builder: (context,followLink)=> InkWell(
+                      onTap: ()=> followLink,
+                      child: IconWidget(color: AppColors.blue,icon:SvgPicture.asset(
+                        "assets/icons/linkedin.svg",width: 20,
+                      ),),
+                    ),
+                  ),
+
+                  Link(
+                    target: LinkTarget.blank,
+                    uri: dribbleUrl,
+                    builder: (context,followLink)=> InkWell(
+                      onTap: ()=> followLink,
+                      child: IconWidget(color: AppColors.iconBg,icon:SvgPicture.asset(
+                        "assets/icons/dribbble.svg",width: 20,
+                      ),),
+                    ),
+                  ),
+
+                  Link(
+                    target: LinkTarget.blank,
+                    uri: twitterUrl,
+                    builder: (context,followLink)=> InkWell(
+                      onTap: ()=> followLink,
+                      child: IconWidget(color: AppColors.iconBg,icon:SvgPicture.asset(
+                        "assets/icons/twitter.svg",width: 20,
+                      ),),
+                    ),
+                  ),
+
+                  Link(
+                    target: LinkTarget.blank,
+                    uri: instagramUrl,
+                    builder: (context,followLink)=> InkWell(
+                      onTap: ()=> followLink,
+                      child: IconWidget(color: AppColors.iconBg,icon:SvgPicture.asset(
+                        "assets/icons/instagram.svg",width: 20,
+                      ),),
+                    ),
+                  ),
 
                 ],
               )),
         ]
       ],
     );
+
   }
+
 }
+
+
+
+
+
+
+
+
 
 class IconWidget extends StatelessWidget {
   const IconWidget({
