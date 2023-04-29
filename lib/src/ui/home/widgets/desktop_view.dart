@@ -1,15 +1,14 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-
-import '../../../core/colors.dart';
 import '../../../data/user_service.dart';
 import '../../../model/user_details_model.dart';
-import 'constants/card_widget.dart';
+import 'constants/intro_widget.dart';
+import 'constants/menu_bar_widget.dart';
 import 'constants/height_space_widget.dart';
+import 'constants/profile_details_widget.dart';
+import 'constants/profile_img_widget.dart';
 import 'constants/stat_row_widget.dart';
-import 'constants/text_view.dart';
+import 'constants/ui_portfolio_widget.dart';
 import 'constants/width_space_widget.dart';
 
 class DesktopView extends StatefulWidget {
@@ -26,7 +25,6 @@ class _DesktopViewState extends State<DesktopView> {
   @override
   void initState() {
     getUser();
-    // TODO: implement initState
     super.initState();
   }
 
@@ -49,102 +47,56 @@ class _DesktopViewState extends State<DesktopView> {
         Column(
           children: [
             Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
-                    child: Container(
-                      height: 400,
                       child:  Column(
                         children: [
-                          CardWidget(
-                            height: 200,
-                            child: TextView(text: "${user.intro}",size: 45,fontWeight: FontWeight.w700,),
-                          ),
+                          IntroWidget(user: user),
                           const HeightSpaceWidget(),
-                          const StatRowWidget(height: 180,)
+                            StatRowWidget(
+                             height: 180,
+                           )
                         ],
                       ),
-                    )
                 ),
                 const WidthSpaceWidget(),
                 Expanded(
-                  child: Container(
-                    //color: Colors.blue,
-                    height: 400,
-                    child: Column(
-                      children: [
-                        CardWidget(
-                            height: 60,
-                            child: Row()
-                        ),
-                        const HeightSpaceWidget(),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: Container(
-                                height: 320,
-                                decoration: const BoxDecoration(
-                                  color: AppColors.purple,
-                                  borderRadius: BorderRadius.all(
-                                      Radius.circular(20)),
-                                ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          const TopMenuBar(),
+                          const HeightSpaceWidget(),
+                          Row(
+                            children: [
+                              ProfileImgWidget(
+                                height: 340,
                               ),
-                            ),
-                            const WidthSpaceWidget(),
-                            Expanded(
-                              child: Container(
-                                height: 320,
-                                // decoration: const BoxDecoration(
-                                //     color: AppColors.lightPink
-                                // ),
-                                child: const Column(
-                                  mainAxisAlignment: MainAxisAlignment
-                                      .spaceBetween,
-                                  children: [
-                                    CardWidget(height: 70, child: Row()),
-                                    HeightSpaceWidget(),
-                                    Expanded(
-                                        flex: 2,
-                                        child: CardWidget(
-                                            height: 50, child: Row())),
-                                    HeightSpaceWidget(),
-                                    CardWidget(height: 70, child: Row()),
-                                  ],
+                              const WidthSpaceWidget(),
+                              Expanded(
+                                child: SizedBox(
+                                  height: 340,
+                                  child: ProfileDetailsWidget(user: user),
                                 ),
-                              ),
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                  ),)
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                ),
               ],
             ),
             const HeightSpaceWidget(),
-            Container(
-              //color: Colors.indigo,
-              child: Row(
+              Row(
                 children: [
-
-                  Container(
-                    width: MediaQuery
-                        .of(context)
-                        .size
-                        .width / 1.8,
-                    height: 230,
-                    //color: Colors.green,
-                    child: CardWidget(height: 230, child: Column(),),
-                  ),
+                  const UIPortfolioWidget(),
                   const WidthSpaceWidget(),
                   Expanded(
-                    child: Container(
-                      height: 230,
-                      //color: Colors.indigo,
-                      child: CardWidget(height: 230, child: Column(),),
-                    ),
+                      child: AboutWidget(user: user, fontSize: 15, fontSizeTitle: 25,),
                   )
                 ],
               ),
-            ),
 
           ],
         ),
@@ -152,4 +104,16 @@ class _DesktopViewState extends State<DesktopView> {
     );
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
