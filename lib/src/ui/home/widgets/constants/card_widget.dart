@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import '../../../../core/colors.dart';
 
 class CardWidget extends StatelessWidget {
-  const CardWidget({
+   CardWidget({
     super.key,
-    required this.height,
+     this.height,
     required this.child,
   });
-  final double height;
+   double? height;
   final Widget child;
 
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+      padding: const EdgeInsets.symmetric(vertical: 15,horizontal: 15),
       width: double.maxFinite,
       height: height,
       decoration: const BoxDecoration(
