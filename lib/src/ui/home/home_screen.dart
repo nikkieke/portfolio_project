@@ -19,7 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: AppColors.bgColor,
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
-          if (constraints.maxWidth <= 450){
+          if (constraints.maxWidth <= 470){
             return const MobileView();
           }
           else if (constraints.maxWidth >= 1024) {
