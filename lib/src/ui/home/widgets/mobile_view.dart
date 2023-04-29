@@ -1,100 +1,157 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/colors.dart';
+import '../../../data/user_service.dart';
+import '../../../model/user_details_model.dart';
 import 'constants/card_widget.dart';
 import 'constants/height_space_widget.dart';
+import 'constants/intro_widget.dart';
+import 'constants/menu_bar_widget.dart';
+import 'constants/profile_details_widget.dart';
+import 'constants/profile_img_widget.dart';
 import 'constants/stat_widget.dart';
 import 'constants/text_view.dart';
 
-class MobileView extends StatelessWidget {
-  const MobileView({
-    super.key,
-  });
+
+class MobileView extends StatefulWidget {
+  const MobileView({Key? key}) : super(key: key);
+
+  @override
+  State<MobileView> createState() => _MobileViewState();
+}
+
+class _MobileViewState extends State<MobileView> {
+  late User user;
+  bool isLoading = false;
+
+  @override
+
+  void initState() {
+    getUser();
+    super.initState();
+  }
+
+  getUser()async{
+    setState(() {
+      isLoading= true;
+    });
+    user = await UserService.readJson();
+    setState(() {
+      isLoading= false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
-        //color: Colors.pink,
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-        child: Column(
+        child:isLoading?
+        const Center(child: CircularProgressIndicator()):
+        Column(
             children: [
-              Container(
-                //color: Colors.blue,
-                height: 400,
+              SizedBox(
+                height: 470,
                 child: Column(
                     children: [
-                      const CardWidget(
-                          height: 60,
-                          child: Row()
-                      ),
+                      const TopMenuBar(),
                       const HeightSpaceWidget(),
-                      Expanded(
-                        child: Container(
-                          decoration: const BoxDecoration(
-                            color: AppColors.purple,
-                            borderRadius: BorderRadius.all(
-                                Radius.circular(20)),
-                          ),
-                        ),
-                      ),
+                      ProfileImgWidget()
                     ]
                 ),
               ),
               const HeightSpaceWidget(),
-              Container(
-                //color: Colors.blue,
-                height: 300,
-                child:  const Column(
-                  mainAxisAlignment: MainAxisAlignment
-                      .spaceBetween,
-                  children: [
-                    Expanded(child: CardWidget(height: 70, child: Row())),
-                    HeightSpaceWidget(),
-                    Expanded(
-                        flex: 2,
-                        child: CardWidget(
-                            height: 50, child: Row())),
-                    HeightSpaceWidget(),
-                    Expanded(child: CardWidget(height: 70, child: Row())),
-
-                  ],
-                ),
+              SizedBox(
+                height: 400,
+                child: ProfileDetailsWidget(user: user),
               ),
               const HeightSpaceWidget(),
-              Container(
-                height: 120,
-                //color: Colors.red,
-                child:   Column(
+                Column(
                   children: [
-                    CardWidget(
-                      height: 100,
-                      child: TextView(text: '',),
-                    ),
+                    IntroWidget(user: user),
                     const HeightSpaceWidget(),
 
                   ],
                 ),
-              ),
-              StatWidget(height: 100, color: AppColors.cyan,),
+              StatWidget(height: 180, color: AppColors.cyan,
+                  textviewTitle: TextView(text: "${user.stats?.yearsExperience}",fontWeight: FontWeight.w800,size: 45,color: AppColors.starkWhite),
+                  textview: TextView(text: "Years Experience",size: 15,fontWeight: FontWeight.w600,color: AppColors.starkWhite,),),
               const HeightSpaceWidget(),
-              StatWidget(height: 100, color: AppColors.mustardYellow,),
-              const HeightSpaceWidget(),
-              StatWidget(height: 100, color: AppColors.lightPink,),
-              const HeightSpaceWidget(),
-              Container(
-                height: 120,
-                //color: Colors.green,
-                child: CardWidget(height:130, child: Column(),),
+              StatWidget(height: 180, color: AppColors.mustardYellow,
+                textviewTitle:
+                TextView(text: "${user.stats?.projects}",fontWeight: FontWeight.w800,size: 45,color: AppColors.leadBlack,),
+                textview: TextView(text: "Handled Projects",size: 15,fontWeight: FontWeight.w600,color: AppColors.leadBlack,),
               ),
               const HeightSpaceWidget(),
-              Container(
-                height: 150,
-                child: CardWidget(height: 130, child: Column(),),
+              StatWidget(height: 180, color: AppColors.lightPink,
+                textviewTitle:
+                TextView(text: "${user.stats?.clients}",fontWeight: FontWeight.w800,size: 45,color: AppColors.starkWhite),
+                textview: TextView(text: "Clients",size: 15,fontWeight: FontWeight.w600,color: AppColors.starkWhite),
               ),
+              const HeightSpaceWidget(),
+              CardWidget(
+                height:700,
+                child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TextView(text: "UI Portfolio",size: 20,fontWeight: FontWeight.w700,color: AppColors.starkWhite,),
+                      TextView(text: "See All",size: 20,fontWeight: FontWeight.w400,color: AppColors.lightWhite,),
+                    ],
+                  ),
+                  const HeightSpaceWidget(),
+                  Expanded(
+                    child: Container(
+                      height: 160,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          image: const DecorationImage(image: AssetImage("assets/images/ecommerce_site.jpg"),
+                            fit: BoxFit.cover,
+                          )
+                      ),
+
+                    ),
+                  ),
+                  const HeightSpaceWidget(),
+                  Expanded(
+                    child: Container(
+                      height: 160,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          image: const DecorationImage(image: AssetImage("assets/images/nft_mkplace_site.jpg"),
+                            fit: BoxFit.cover,
+                          )
+                      ),
+
+                    ),
+                  ),
+                  const HeightSpaceWidget(),
+                  Expanded(
+                    child: Container(
+                      height: 160,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          image: const DecorationImage(image: AssetImage("assets/images/document_site.jpg"),
+                            fit: BoxFit.cover,
+                          )
+                      ),
+
+                    ),
+                  ),
+                ],
+              ),),
+
+              const HeightSpaceWidget(),
+            SizedBox(
+              height: 250,
+              child: AboutWidget(user: user, fontSize: 14, fontSizeTitle: 16,),
+            ),
+
             ]
         ),
       ),
     );
   }
 }
+
