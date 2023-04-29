@@ -1,16 +1,10 @@
-# portfolio_project
+# Portfolio Project 
 
-A new Flutter project.
+### Desktop View
+![Desktop View](https://user-images.githubusercontent.com/95222620/235281051-2a0121c2-5c73-4f84-ae94-8efa4f0f2594.png)
 
-## Getting Started
+### Tablet View
+![Tab View](https://user-images.githubusercontent.com/95222620/235281054-7e45b287-7204-453b-ac2d-eeb5f63a294f.png)
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Mobile View
+![Mobile view](https://user-images.githubusercontent.com/95222620/235281056-4f564dcb-5e8b-4e31-9bb9-f41f99fcdd9f.png)
