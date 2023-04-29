@@ -38,6 +38,7 @@ dependencies:
   google_fonts:
   flutter_svg:
   auto_size_text:
+  url_launcher:
 
 
 dev_dependencies:
